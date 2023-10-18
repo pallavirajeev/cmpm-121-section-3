@@ -42,33 +42,31 @@ export default class Play extends Phaser.Scene {
       .setOrigin(0, 0);
 
     this.spinner = this.add.rectangle(100, 400, 50, 50, 0x00d3d8);
+
+    //this.enemy = this.add.rectangle(100,100, 20,20, "red");
   }
 
   update(_timeMs: number, delta: number) {
     this.starfield!.tilePositionX -= 4;
 
     if (this.left!.isDown) {
-      //this.spinner!.rotation -= delta * this.rotationSpeed;
       this.spinner!.x -= 3;
     }
     if (this.right!.isDown) {
-      //this.spinner!.rotation += delta * this.rotationSpeed;
       this.spinner!.x += 3;
     }
     if (this.fire!.isDown) {
-      //this.spinner!.position.y += 1;
       this.left!.enabled = false;
       this.right!.enabled = false;
       this.tweens.add({
         targets: this.spinner,
         y: delta * this.rotationSpeed,
         duration: 2000,
-        //scale: { from: 1.5, to: 1 },
-        //duration: 300,
-        // ease: Phaser.Math.Easing.Sine.Out,
-        // onComplete() {
-        //   this.spinner!.position.set(100,400);
-        // }
+        onComplete: () => {
+          this.spinner!.y = 400;
+          this.left!.enabled = true;
+          this.right!.enabled = true;
+        },
       });
     }
   }
