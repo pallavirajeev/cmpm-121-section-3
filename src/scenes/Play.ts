@@ -41,26 +41,41 @@ export default class Play extends Phaser.Scene {
       )
       .setOrigin(0, 0);
 
-    this.spinner = this.add.rectangle(100, 100, 50, 50, 0x00d3d8);
+    this.spinner = this.add.rectangle(100, 400, 50, 50, 0x00d3d8);
   }
+
+  // update() {
+  //   if (this.left!.isDown) {
+  //     //this.spinner!.rotation -= delta * this.rotationSpeed;
+  //     this.spinner!.position.x -= 1;
+  //   }
+  //   if (this.right!.isDown) {
+  //     //this.spinner!.rotation += delta * this.rotationSpeed;
+  //     this.spinner!.position.x += 1;
+  //   }
+  // }
+  //fix this to get spinner to move left and right
 
   update(_timeMs: number, delta: number) {
     this.starfield!.tilePositionX -= 4;
 
     if (this.left!.isDown) {
       this.spinner!.rotation -= delta * this.rotationSpeed;
-      //this.spinner!.position.x += 1;
+      //this.spinner.position.x -= 1;
     }
     if (this.right!.isDown) {
       this.spinner!.rotation += delta * this.rotationSpeed;
+      //this.spinner.position.x += 1;
     }
 
     if (this.fire!.isDown) {
+      //this.spinner!.position.y += 1;
       this.tweens.add({
         targets: this.spinner,
         scale: { from: 1.5, to: 1 },
         duration: 300,
         ease: Phaser.Math.Easing.Sine.Out,
+        //when F is pushed, launch ship upwards
       });
     }
   }
